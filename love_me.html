@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Moko?</title>
+    <style>
+       
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #fce4ec;
+            overflow: hidden; 
+        }
+
+        
+        .question-container {
+            text-align: center;
+        }
+
+        
+        .question {
+            font-size: 2.5rem;
+            color: #d81b60;
+        }
+
+        
+        .button-container {
+            margin-top: 20px;
+        }
+
+
+        .btn {
+            font-size: 1.5rem;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: transform 0.2s ease-in-out, top 0.5s ease-out, left 0.5s ease-out;
+            position: relative; 
+        }
+        
+        .yes-btn {
+            background-color: #4caf50;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        
+        .no-btn {
+            background-color: #f44336;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        
+        .result-container {
+            text-align: center;
+            display: none;
+        }
+
+       
+        .result-container h2 {
+            font-size: 3rem;
+            color: #d81b60;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        
+        .local-gif,
+        .gif-result {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+      
+        .cssload-main {
+            display: none; 
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .cssload-heart {
+            position: relative;
+            width: 100px;
+            height: 90px;
+        }
+
+        .cssload-heartL,
+        .cssload-heartR {
+            position: absolute;
+            width: 60px;
+            height: 90px;
+            background: #d81b60;
+            border-radius: 60px 60px 0 0;
+            transform-origin: 50% 100%;
+            animation: cssload-heart 1.5s ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        .cssload-heartL {
+            left: 0;
+            transform: rotate(45deg);
+        }
+
+        .cssload-heartR {
+            right: 0;
+            transform: rotate(-45deg);
+        }
+
+        .cssload-square {
+            position: absolute;
+            top: 30px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: #d81b60;
+            transform: rotate(45deg);
+            
+        }
+
+        .cssload-shadow {
+            width: 100px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            margin-top: 10px;
+            animation: cssload-shadow 1.5s ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes cssload-heart {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.2) rotate(0deg); }
+            50% { transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes cssload-shadow {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quistion-container">
+        
+        <img class="local-gif" src="https://media.tenor.com/Q3MoZNNLFToAAAAM/cat-cute-cat.gif" alt="A cute cat" loop>
+        <h2 class="question">Love moko?</h2>
+        <div class="button-container">
+            <button class="yes-btn btn js-yes-btn">OO E!</button>
+            <button class="no-btn btn js-no-btn">INDE</button>
+        </div>
+    </div>
+
+    <div class="result-container">
+        
+        <img class="gif-result" src="https://i.pinimg.com/originals/88/14/9b/88149b0400750578f4d07d9bc3fb0fee.gif" alt="A cat celebrating" loop>
+        <h2>YIEEE!!!!! crush mo gd ko ba hehe...<br>I love you too bubbb<3 </h2>
+    </div>
+
+    <div class="cssload-main">
+        <div class="cssload-heart">
+            <span class="cssload-heartL"></span>
+            <span class="cssload-heartR"></span>
+            <span class="cssload-square"></span>
+        </div>
+        <div class="cssload-shadow"></div>
+    </div>
+
+    <script>
+        
+        const yesBtn = document.querySelector('.js-yes-btn');
+        const noBtn = document.querySelector('.js-no-btn');
+        const questionContainer = document.querySelector('.quistion-container');
+        const resultContainer = document.querySelector('.result-container');
+        const heartAnimation = document.querySelector('.cssload-main');
+
+     
+        yesBtn.addEventListener('click', () => {
+            
+            questionContainer.style.display = 'none';
+            resultContainer.style.display = 'block';
+            heartAnimation.style.display = 'block';
+        });
+
+        
+        noBtn.addEventListener('mouseover', () => {
+           
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            const buttonWidth = noBtn.offsetWidth;
+            const buttonHeight = noBtn.offsetHeight;
+
+            
+            const newX = Math.random() * (windowWidth - buttonWidth);
+            const newY = Math.random() * (windowHeight - buttonHeight);
+
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${newX}px`;
+            noBtn.style.top = `${newY}px`;
+        });
+    </script>
+
+</body>
+</html>
