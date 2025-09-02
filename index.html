@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Love Moko?</title>
     <style>
-       
+        /* Center all content on the page */
         body {
             display: flex;
             justify-content: center;
@@ -14,26 +14,26 @@
             margin: 0;
             font-family: 'Inter', sans-serif;
             background-color: #fce4ec;
-            overflow: hidden; 
+            overflow: hidden; /* Hide scrollbars that might appear when the button moves */
         }
 
-        
+        /* Container for the main content */
         .question-container {
             text-align: center;
         }
 
-        
+        /* Styles for the question text */
         .question {
             font-size: 2.5rem;
             color: #d81b60;
         }
 
-        
+        /* Container for the buttons */
         .button-container {
             margin-top: 20px;
         }
 
-
+        /* General button styles */
         .btn {
             font-size: 1.5rem;
             padding: 15px 30px;
@@ -42,23 +42,24 @@
             cursor: pointer;
             margin: 0 10px;
             transition: transform 0.2s ease-in-out, top 0.5s ease-out, left 0.5s ease-out;
-            position: relative; 
+            position: relative; /* Needed for the "no" button to move */
         }
-        
+
+        /* Style for the "Yes" button */
         .yes-btn {
             background-color: #4caf50;
             color: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        
+        /* Style for the "No" button */
         .no-btn {
             background-color: #f44336;
             color: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        
+        /* Hover and active effects for the buttons */
         .btn:hover {
             transform: scale(1.05);
         }
@@ -67,20 +68,13 @@
             transform: scale(0.95);
         }
 
-        
+        /* Hide the result container by default */
         .result-container {
             text-align: center;
             display: none;
         }
 
-       
-        .result-container h2 {
-            font-size: 3rem;
-            color: #d81b60;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        
+        /* Styles for the GIFs, making them responsive */
         .local-gif,
         .gif-result {
             max-width: 100%;
@@ -89,9 +83,9 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-      
+        /* Heart animation styles */
         .cssload-main {
-            display: none; 
+            display: none; /* Hide the heart animation by default */
             position: absolute;
             top: 50%;
             left: 50%;
@@ -112,6 +106,7 @@
             background: #d81b60;
             border-radius: 60px 60px 0 0;
             transform-origin: 50% 100%;
+            /* Modified for single pulse */
             animation: cssload-heart 1.5s ease-in-out;
             animation-fill-mode: forwards;
         }
@@ -134,7 +129,6 @@
             height: 60px;
             background: #d81b60;
             transform: rotate(45deg);
-            
         }
 
         .cssload-shadow {
@@ -143,6 +137,7 @@
             background: rgba(0, 0, 0, 0.1);
             border-radius: 50%;
             margin-top: 10px;
+            /* Modified for single pulse */
             animation: cssload-shadow 1.5s ease-in-out;
             animation-fill-mode: forwards;
         }
@@ -168,8 +163,8 @@
 <body>
 
     <div class="quistion-container">
-        
-        <img class="local-gif" src="https://media.tenor.com/Q3MoZNNLFToAAAAM/cat-cute-cat.gif" alt="A cute cat" loop>
+        <!-- The video tag is not for GIFs, using img instead as per best practices -->
+        <img class="local-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOW11aW56dmdhZnlsMm9tZ3M1djJ0OHpma3M4emR0dWZkOWFvdWh1OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LqO7E6M8Q0bS0/giphy.gif" alt="A cute cat" loop>
         <h2 class="question">Love moko?</h2>
         <div class="button-container">
             <button class="yes-btn btn js-yes-btn">OO E!</button>
@@ -178,9 +173,9 @@
     </div>
 
     <div class="result-container">
-        
-        <img class="gif-result" src="https://i.pinimg.com/originals/88/14/9b/88149b0400750578f4d07d9bc3fb0fee.gif" alt="A cat celebrating" loop>
-        <h2>YIEEE!!!!! crush mo gd ko ba hehe...<br>I love you too bubbb<3 </h2>
+        <!-- The video tag is not for GIFs, using img instead as per best practices -->
+        <img class="gif-result" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdm4yMTJkM25nb2U5bHBwZmtwa3Q5Z3B3ZTF0czV2dWFoYTMyd2R5ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kSlJtVj90N0N439i9S/giphy.gif" alt="A cat celebrating" loop>
+        <h2>YIE crush mo gd ko ba</h2>
     </div>
 
     <div class="cssload-main">
@@ -193,36 +188,41 @@
     </div>
 
     <script>
-        
+        // Get references to all the elements we need
         const yesBtn = document.querySelector('.js-yes-btn');
         const noBtn = document.querySelector('.js-no-btn');
         const questionContainer = document.querySelector('.quistion-container');
         const resultContainer = document.querySelector('.result-container');
         const heartAnimation = document.querySelector('.cssload-main');
 
-     
-        yesBtn.addEventListener('click', () => {
-            
-            questionContainer.style.display = 'none';
-            resultContainer.style.display = 'block';
-            heartAnimation.style.display = 'block';
-        });
-
-        
-        noBtn.addEventListener('mouseover', () => {
-           
+        // Function to move the "No" button
+        function moveButton() {
+            // Get the dimensions of the window and the button
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
             const buttonWidth = noBtn.offsetWidth;
             const buttonHeight = noBtn.offsetHeight;
 
-            
+            // Calculate new random positions for the button within the viewport
             const newX = Math.random() * (windowWidth - buttonWidth);
             const newY = Math.random() * (windowHeight - buttonHeight);
 
+            // Apply the new position
             noBtn.style.position = 'absolute';
             noBtn.style.left = `${newX}px`;
             noBtn.style.top = `${newY}px`;
+        }
+        
+        // Event listeners for the "No" button, now for both mouse and touch
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', moveButton);
+
+        // Event listener for the "Yes" button
+        yesBtn.addEventListener('click', () => {
+            // Hide the question and show the result
+            questionContainer.style.display = 'none';
+            resultContainer.style.display = 'block';
+            heartAnimation.style.display = 'block';
         });
     </script>
 
